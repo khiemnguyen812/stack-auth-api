@@ -4,7 +4,7 @@ import { StackAuthService } from "./stackAuth.service";
 import { ResponseData } from "src/global/globalClass";
 import { HttpMessage } from "src/global/gobal.Enum";
 import { signUpEmailPassswordDto, signInEmailPassswordDto, sendResetPasswordCodeDto, resetPasswordWithCodeDto, sendSignInCodeDto, signInWithCodeDto, updateUserDto, sendEmailVerificationCodeDto } from "src/dto/stackAuth.dto";
-import { ApiTags, ApiOperation, ApiResponse, ApiParam } from "@nestjs/swagger";
+import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody } from "@nestjs/swagger";
 
 @Controller("stackAuth")
 export class StackAuthController {
@@ -161,9 +161,16 @@ export class StackAuthController {
     @ApiTags('SignIn and SignUp')
     @Post('/checkResetPasswordCode')
     @ApiOperation({ summary: 'Check reset password code' })
-    async checkResetPasswordCode(@Body(new ValidationPipe()) code: string) {
+    @ApiBody({
+        schema: {
+            example: {
+                code: 'zf57b82q9xss80dedah0r8p252w3k8ym9wtqhr200z580'
+            }
+        }
+    })
+    async checkResetPasswordCode(@Body(new ValidationPipe()) body: { code: string }) {
         try {
-            const data = await this.stackAuthService.checkResetPasswordCode(code);
+            const data = await this.stackAuthService.checkResetPasswordCode(body.code);
             return new ResponseData(
                 HttpStatus.CREATED,
                 data,
@@ -177,6 +184,7 @@ export class StackAuthController {
             );
         }
     }
+
 
     @ApiTags('SignIn and SignUp')
     @Post('/sendSignInCode')

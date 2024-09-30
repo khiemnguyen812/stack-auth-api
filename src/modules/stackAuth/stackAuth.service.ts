@@ -5,23 +5,22 @@ import { Injectable } from '@nestjs/common';
 export class StackAuthService {
     private headers = {
         'X-Stack-Access-Type': 'server',
-        'X-Stack-Project-Id': '10fffdbb-8179-4188-b6aa-dc7fd0403f9a',
-        'X-Stack-Publishable-Client-Key': 'pck_w8fsw5q7zep9mssz63wzs8jsnzdxx9jrmn0dbka80hvc8',
-        'X-Stack-Secret-Server-Key': 'ssk_x0ybdta0zckxkgqnyr7axga3n6xe22fjznvbxarm9nzwr',
+        'X-Stack-Project-Id': '954eeb93-37a7-4ed0-a1c9-7e2d2240bf98',
+        'X-Stack-Publishable-Client-Key': 'pck_qk6rgaftewr18vtd60yhcj5dgw5cj5c4478whyd8qh8rg',
+        'X-Stack-Secret-Server-Key': 'ssk_2dy7m8p52f58jg2j8djftdya0mpdvv6ev5q51mrh62g0r',
         'Content-Type': 'application/json'
     };
 
     private headersWithoutContentType = {
-
         'X-Stack-Access-Type': 'server',
-        'X-Stack-Project-Id': '10fffdbb-8179-4188-b6aa-dc7fd0403f9a',
-        'X-Stack-Publishable-Client-Key': 'pck_w8fsw5q7zep9mssz63wzs8jsnzdxx9jrmn0dbka80hvc8',
-        'X-Stack-Secret-Server-Key': 'ssk_x0ybdta0zckxkgqnyr7axga3n6xe22fjznvbxarm9nzwr',
+        'X-Stack-Project-Id': '954eeb93-37a7-4ed0-a1c9-7e2d2240bf98',
+        'X-Stack-Publishable-Client-Key': 'pck_qk6rgaftewr18vtd60yhcj5dgw5cj5c4478whyd8qh8rg',
+        'X-Stack-Secret-Server-Key': 'ssk_2dy7m8p52f58jg2j8djftdya0mpdvv6ev5q51mrh62g0r',
     };
     async signUp(email: string, password: string, verification_callback_url: string): Promise<any> {
         try {
             const response = await axios.post(
-                'https://api.stack-auth.com/api/v1/auth/password/sign-up',
+                'http://localhost:8102/api/v1/auth/password/sign-up',
                 { email, password, verification_callback_url },
                 { headers: this.headers }
             );
@@ -35,7 +34,7 @@ export class StackAuthService {
     async signIn(email: string, password: string): Promise<any> {
         try {
             const response = await axios.post(
-                'https://api.stack-auth.com/api/v1/auth/password/sign-in',
+                'http://localhost:8102/api/v1/auth/password/sign-in',
                 { email, password },
                 { headers: this.headers }
             );
@@ -49,7 +48,7 @@ export class StackAuthService {
     async sendResetPasswordCode(email: string, callback_url: string): Promise<any> {
         try {
             const response = await axios.post(
-                'https://api.stack-auth.com/api/v1/auth/password/send-reset-code',
+                'http://localhost:8102/api/v1/auth/password/send-reset-code',
                 { email, callback_url },
                 { headers: this.headers }
             );
@@ -62,7 +61,7 @@ export class StackAuthService {
     async resetPasswordWithCode(password: string, code: string): Promise<any> {
         try {
             const response = await axios.post(
-                'https://api.stack-auth.com/api/v1/auth/password/reset',
+                'http://localhost:8102/api/v1/auth/password/reset',
                 { password, code },
                 { headers: this.headers }
             );
@@ -76,7 +75,7 @@ export class StackAuthService {
     async checkResetPasswordCode(code: string): Promise<any> {
         try {
             const response = await axios.post(
-                'https://api.stack-auth.com/api/v1/auth/password/reset/check-code',
+                'http://localhost:8102/api/v1/auth/password/reset/check-code',
                 { code },
                 { headers: this.headers }
             );
@@ -90,7 +89,7 @@ export class StackAuthService {
     async sendSignInCode(email: string, callback_url: string): Promise<any> {
         try {
             const response = await axios.post(
-                'https://api.stack-auth.com/api/v1/auth/otp/send-sign-in-code',
+                'http://localhost:8102/api/v1/auth/otp/send-sign-in-code',
                 { email, callback_url },
                 { headers: this.headers }
             );
@@ -104,7 +103,7 @@ export class StackAuthService {
     async signInWithCode(code: string): Promise<any> {
         try {
             const response = await axios.post(
-                'https://api.stack-auth.com/api/v1/auth/otp/sign-in',
+                'http://localhost:8102/api/v1/auth/otp/sign-in',
                 { code },
                 { headers: this.headers }
             );
@@ -118,7 +117,7 @@ export class StackAuthService {
     async checkSignInCode(code: string): Promise<any> {
         try {
             const response = await axios.post(
-                'https://api.stack-auth.com/api/v1/auth/otp/sign-in/check-code',
+                'http://localhost:8102/api/v1/auth/otp/sign-in/check-code',
                 { code },
                 { headers: this.headers }
             );
@@ -132,7 +131,7 @@ export class StackAuthService {
     async listUsers(): Promise<any> {
         try {
             const response = await axios.get(
-                'https://api.stack-auth.com/api/v1/users',
+                'http://localhost:8102/api/v1/users',
                 { headers: this.headersWithoutContentType }
             );
             return response.data;
@@ -145,7 +144,7 @@ export class StackAuthService {
     async getUser(userId: string): Promise<any> {
         try {
             const response = await axios.get(
-                `https://api.stack-auth.com/api/v1/users/${userId}`,
+                `http://localhost:8102/api/v1/users/${userId}`,
                 { headers: this.headersWithoutContentType }
             );
             return response.data;
@@ -158,7 +157,7 @@ export class StackAuthService {
     async deleteUser(userId: string): Promise<any> {
         try {
             const response = await axios.delete(
-                `https://api.stack-auth.com/api/v1/users/${userId}`,
+                `http://localhost:8102/api/v1/users/${userId}`,
                 { headers: this.headersWithoutContentType }
             );
             return response.data;
@@ -171,7 +170,7 @@ export class StackAuthService {
     async updateUser(userId: string, data: any): Promise<any> {
         try {
             const response = await axios.patch(
-                `https://api.stack-auth.com/api/v1/users/${userId}`,
+                `http://localhost:8102/api/v1/users/${userId}`,
                 data,
                 { headers: this.headersWithoutContentType }
             );
@@ -185,7 +184,7 @@ export class StackAuthService {
     async sendEmailVerificationCode(email: string, callback_url: string): Promise<any> {
         try {
             const response = await axios.post(
-               'https://api.stack-auth.com/api/v1/contact-channels/send-verification-code',
+               'http://localhost:8102/api/v1/contact-channels/send-verification-code',
                 { email, callback_url },
                 { headers: this.headers }
             );
@@ -199,7 +198,7 @@ export class StackAuthService {
     async verifyEmail(code: string): Promise<any> {
         try {
             const response = await axios.post(
-                'https://api.stack-auth.com/api/v1/contact-channels/verify',
+                'http://localhost:8102/api/v1/contact-channels/verify',
                 { code },
                 { headers: this.headers }
             );
@@ -213,7 +212,7 @@ export class StackAuthService {
     async checkEmailVerificationCode(code: string): Promise<any> {
         try {
             const response = await axios.post(
-                'https://api.stack-auth.com/api/v1/contact-channels/verify/check-code',
+                'http://localhost:8102/api/v1/contact-channels/verify/check-code',
                 { code },
                 { headers: this.headers }
             );
@@ -232,7 +231,7 @@ export class StackAuthService {
         const after_callback_redirect_url = 'https://yourapp.com/after-callback';
         const client_id = '10fffdbb-8179-4188-b6aa-dc7fd0403f9a';
         const client_secret = 'pck_w8fsw5q7zep9mssz63wzs8jsnzdxx9jrmn0dbka80hvc8';
-        const redirect_uri = 'https://api.stack-auth.com/api/v1/auth/oauth/callback/google';
+        const redirect_uri = 'http://localhost:8102/api/v1/auth/oauth/callback/google';
         const scope = 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile email profile';
         const state = '';
         const grant_type = 'authorization_code';
@@ -241,7 +240,7 @@ export class StackAuthService {
         const response_type = 'code';
         try {
             const response = await axios.get(
-                `https://api.stack-auth.com/api/v1/auth/oauth/authorize/${provider_id}`,
+                `http://localhost:8102/api/v1/auth/oauth/authorize/${provider_id}`,
                 {
                     headers: this.headersWithoutContentType,
                     params: {
